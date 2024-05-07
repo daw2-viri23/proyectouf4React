@@ -1,18 +1,20 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import Header from './componentes/header';
+import Home from './vistes/Home';
+import { GlobalProvider } from './componentes/GlobalContext'; // Importamos el proveedor del contexto global
+import { Tarjeta } from './componentes/Tarjeta';
+import TotalClicksCounter from './componentes/TotalClicksCounter';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <h1 className="text-5xl font-bold underline">
-      Hello world!
-    </h1>
-    </>
-  )
+    <GlobalProvider> {/* Envuelve la aplicación con el proveedor del contexto global */}
+      <Header />
+      <Home />
+      <TotalClicksCounter />
+      <Tarjeta />
+      
+    </GlobalProvider>
+  );
 }
 
-export default App
+export default App;
