@@ -7,6 +7,8 @@ import { GlobalProvider } from './componentes/GlobalContext'; // Importamos el p
 import { Route, Routes } from 'react-router-dom';
 import { Juego } from './vistes/Juego';
 import { AcercaDe } from './vistes/AcercaDe';
+import { Login } from './vistes/Login';
+import { Registro } from './vistes/Registro';
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
         <Route path='/' element={<Home></Home>}></Route>
         <Route path='/Game' element={<Juego></Juego>}></Route>
         <Route path='/About' element={<AcercaDe />}></Route>
+        <Route path='/Login' element={<Login />}></Route>
+        <Route path='/Registro' element={<Registro />}></Route>
       </Routes>
     </GlobalProvider>
   );
