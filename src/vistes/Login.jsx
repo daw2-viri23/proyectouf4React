@@ -1,4 +1,6 @@
+// Login.jsx
 import React, { useState } from 'react';
+import { Perfil } from '../bd/Perfil';
 
 export function Login() {
   const [formData, setFormData] = useState({
@@ -14,21 +16,29 @@ export function Login() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Guardar los datos en localStorage
-    localStorage.setItem('loginData', JSON.stringify(formData));
-    // Lógica para enviar los datos al servidor o realizar otras acciones
-    console.log('Datos guardados:', formData);
-    // Limpiar los campos después de guardar los datos
-    setFormData({
-      email: '',
-      password: ''
-    });
+    try {
+      // Iniciar sesión utilizando la clase Perfil
+      const user = await Perfil.iniciarSesion(formData.email, formData.password);
+      
+      // Consultar la tabla 'perfiles' para obtener el perfil del usuario autenticado
+      const { data, error } = await Perfil.obtenerPerfilPorUsuario(user.id);
+
+      if (error) {
+        throw error;
+      }
+
+      console.log('Perfil del usuario:', data);
+
+      // Redirigir al usuario a la página de inicio después de iniciar sesión
+    } catch (error) {
+      console.error('Error al iniciar sesión:', error.message);
+    }
   };
 
   return (
-    <div className="flex items-center justify-center ">
+    <div className="flex items-center justify-center">
       <div className="bg-white p-8 rounded shadow-md max-w-md w-full mt-20">
         <h2 className="text-2xl font-semibold mb-6">Iniciar sesión</h2>
         <form onSubmit={handleSubmit}>
